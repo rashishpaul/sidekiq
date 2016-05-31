@@ -1,0 +1,31 @@
+# Sidekiq
+
+### What is Sidekiq?
+Sidekiq is a framework that may be installed with a a simple addition to your Rails Gemfile:
+```
+gem 'sidekiq'
+```
+It allows you to perform jobs asynchronously.  In summary it performs jobs in the background of an app without interrupting the flow of the app.  It is possible to coordinate an automated task at a specific time. Include the following:
+```
+class NecessaryTask
+  include Sidekiq::Worker
+  def perform(name, count)
+  # action
+  end
+end
+```
+
+From the above method you can see that the method takes two arguements.  With the following line of code you can postpone a a job execution:
+```
+NecessaryTask.perform_in(5.minutes, 'text', 3)
+```
+It is expected that 'text' will display 3x five minutes from the current time.
+
+### Requirements
+Sidekiq requires Redis, a Client, and a Server
+
+### References
+> https://github.com/mperham/sidekiq/wiki/Getting-Started
+> https://www.youtube.com/watch?v=VS9g4wB6wZk
+> https://www.codefellows.org/blog/how-to-set-up-a-rails-4-2-mailer-with-sidekiq
+
